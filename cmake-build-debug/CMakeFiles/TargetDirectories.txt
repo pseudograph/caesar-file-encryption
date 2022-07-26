@@ -1,0 +1,3 @@
+/home/iv/dev/file-encryptor/cmake-build-debug/CMakeFiles/file_encryptor.dir
+/home/iv/dev/file-encryptor/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/iv/dev/file-encryptor/cmake-build-debug/CMakeFiles/rebuild_cache.dir

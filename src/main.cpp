@@ -1,5 +1,4 @@
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <memory>
 
@@ -58,8 +57,8 @@ int main(int argc, char** argv) {
             keyFile << fileDataPtr->exportKey();
             encryptedFile.close();
             keyFile.close();
-            break;
             std::cout << "Encryption complete." << std::endl;
+            break;
         }
         default:
             std::cerr << "Invalid arguments." << std::endl;

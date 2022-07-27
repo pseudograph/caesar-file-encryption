@@ -20,7 +20,9 @@ public:
         long fileSize{ 0 };
         while (is) {
             is.get(curChar);
-            mData.push_back(curChar);
+            if (is.good()) {
+                mData.push_back(curChar);
+            }
             ++fileSize;
         }
         mKeyFile = Key(fileSize);
@@ -33,7 +35,9 @@ public:
         char curChar{};
         while (is) {
             is.get(curChar);
-            mData.push_back(curChar);
+            if (is.good()) {
+                mData.push_back(curChar);
+            }
         }
         mKeyFile = keyFile;
         is.close();

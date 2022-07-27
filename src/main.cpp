@@ -24,43 +24,42 @@ int main(int argc, char** argv) {
         std::cout << "Mode       : Encryption\n";
         std::cout << "File path  : " << argv[1] << '\n';
         std::cout << "Key path   : " << Utility::getFileName(argv[1]) << ".key\n";
-        keyPtr = std::make_unique<Key>();
-        fileDataPtr = std::make_unique<FileData>(static_cast<std::string>(argv[1]), *keyPtr);
+        fileDataPtr = std::make_unique<FileData>(static_cast<std::string>(argv[1]));
         break;
     default:
         std::cerr << "Invalid arguments." << std::endl;
     }
     switch (argc) {
-        case DECRYPTION_MODE: {
-            std::ofstream decryptedFile{Utility::getFileName(argv[1])
-                                        + "decrypted"
-                                        + Utility::getFileExtension(argv[1]),
-                                        std::ios_base::binary};
-            std::vector<char> decryptedData{fileDataPtr->decrypt()};
-            for (char curChar: decryptedData) {
-                decryptedFile << curChar;
-            }
-            decryptedFile.close();
-            std::cout << "Decryption complete." << std::endl;
-            break;
+    case DECRYPTION_MODE: {
+        std::ofstream decryptedFile{Utility::getFileName(argv[1])
+                                    + "decrypted"
+                                    + Utility::getFileExtension(argv[1]),
+                                    std::ios_base::binary};
+        std::vector<char> decryptedData{fileDataPtr->decrypt()};
+        for (char curChar: decryptedData) {
+            decryptedFile << curChar;
         }
-        case ENCRYPTION_MODE: {
-            std::ofstream encryptedFile{Utility::getFileName(argv[1])
-                                        + "encrypted"
-                                        + Utility::getFileExtension(argv[1]),
-                                        std::ios_base::binary};
-            std::ofstream keyFile{Utility::getFileName(argv[1]) + ".key"};
-            std::vector<char> encryptedData{ fileDataPtr->encrypt() };
-            for (char curChar: encryptedData) {
-                encryptedFile << curChar;
-            }
-            keyFile << fileDataPtr->exportKey();
-            encryptedFile.close();
-            keyFile.close();
-            std::cout << "Encryption complete." << std::endl;
-            break;
+        decryptedFile.close();
+        std::cout << "Decryption complete." << std::endl;
+        break;
+    }
+    case ENCRYPTION_MODE: {
+        std::ofstream encryptedFile{Utility::getFileName(argv[1])
+                                    + "encrypted"
+                                    + Utility::getFileExtension(argv[1]),
+                                    std::ios_base::binary};
+        std::ofstream keyFile{Utility::getFileName(argv[1]) + ".key"};
+        std::vector<char> encryptedData{ fileDataPtr->encrypt() };
+        for (char curChar: encryptedData) {
+            encryptedFile << curChar;
         }
-        default:
-            std::cerr << "Invalid arguments." << std::endl;
+        keyFile << fileDataPtr->exportKey();
+        encryptedFile.close();
+        keyFile.close();
+        std::cout << "Encryption complete." << std::endl;
+        break;
+    }
+    default:
+        std::cerr << "Invalid arguments." << std::endl;
     }
 }
